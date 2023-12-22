@@ -1,4 +1,3 @@
-
 <?php
 
 // Pastikan mengganti informasi database sesuai dengan kebutuhan Anda
@@ -15,6 +14,7 @@ $dbname = "sijali"; // Sesuaikan dengan nama database Anda
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Query untuk mengambil data dari tabel users
@@ -27,7 +27,7 @@ try {
     $sheet = $spreadsheet->getActiveSheet();
 
     // Menulis header
-    $header = ['Id', 'Username', 'Password','Nama Lengkap', 'Role'];
+    $header = ['Id', 'Username', 'Password', 'Nama Lengkap', 'Role'];
     $columnIndex = 1;
     foreach ($header as $column) {
         $sheet->setCellValueByColumnAndRow($columnIndex++, 1, $column);
@@ -44,8 +44,8 @@ try {
     }
 
     // Menyimpan ke file Excel
-    $writer = new Xlsx($spreadsheet);
     $excelFileName = 'user_data.xlsx';
+    $writer = new Xlsx($spreadsheet);
     $writer->save($excelFileName);
 
     // Menentukan header untuk file Excel
@@ -61,4 +61,3 @@ try {
     echo json_encode(['success' => false, 'message' => 'Terjadi kesalahan dalam koneksi database: ' . $e->getMessage()]);
     exit;
 }
-?>
